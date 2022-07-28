@@ -76,6 +76,23 @@ int BuscarLibro(string titulo, vector<Book>arr){
    return -1;
 }
 
+vector<Book> OrdenarLibros(vector<Book> v){
+
+   int i;
+     for (i = 0; i < v.size()-1; ++i) {
+        int j;
+        for (j = 0; j < v.size()-1; ++j) {
+           if (v[j].getTitulo() > v[j+1].getTitulo()) {
+              Book temp = v[j+1];
+              v[j+1] = v[j];
+              v[j] = temp;
+           }
+        }
+     }   
+
+   return v;
+} 
+
 
 int main()
 {
@@ -84,9 +101,10 @@ int main()
       int opcion;
 
       cout << endl << "1. Añadir un libro al archivo" << endl;
-      cout << "2. Borrar un libro del archivo" << endl;
+      cout << "2. Borrar un libro del archivo" << endl; 
       cout << "3. Ver todos los libros del archivo" << endl;
       cout << "4. Buscar un libro en especial del archivo" << endl;
+      cout << "5. Ordenar el archivo alfabéticamente" << endl;
 
       cout << ">>> ";
       cin >> opcion;
@@ -105,7 +123,7 @@ int main()
          index = BuscarLibro(busqueda, arr); 
 
          if (index != -1) {
-            arr.erase(arr.begin() + index); // This is broken, idk
+            arr.erase(arr.begin() + index); 
          }
       }
 
@@ -134,6 +152,10 @@ int main()
                cout << "El género de este libro es: " << arr[i].getGenero() << endl;
             } 
          }
+      }
+
+      if (opcion == 5){
+         arr = OrdenarLibros(arr);
       }
    } 
 
