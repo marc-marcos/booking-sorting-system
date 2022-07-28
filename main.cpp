@@ -3,12 +3,12 @@
 #include<vector>
 using namespace std;
 
-/*
-   - Añadir un libro al archivo
-   - Mostrar todos los libros del archivo
-   - Poder borrar un libro
+/* TODO:
    - Poder ordenar los libros por orden alfabético
    - Ordenar los libros por orden alfabético cada vez que se añada un libro nuevo
+   - Añadir un sistema de calificación de libros, consultar reseñas, dejar valoraciones, poder filtrar por valoraciones, etc.
+
+   - Se puede externalizar el bucle de la linea (128) con una función.
 */   
 
 class Book{
@@ -88,6 +88,7 @@ int main()
       cout << "3. Ver todos los libros del archivo" << endl;
       cout << "4. Buscar un libro en especial del archivo" << endl;
 
+      cout << ">>> ";
       cin >> opcion;
 
       if (opcion == 1){
@@ -95,14 +96,43 @@ int main()
       }
 
       if (opcion == 2){
-         int index;
 
+         int index;
          string busqueda;
+
+         cout << endl << "Introduce el título del libro que quieres borrar del archivo: " << endl;
          cin >> busqueda;
          index = BuscarLibro(busqueda, arr); 
 
          if (index != -1) {
-            arr.erase(index); // This is broken, idk
+            arr.erase(arr.begin() + index); // This is broken, idk
+         }
+      }
+
+      if (opcion == 3){
+         int i;
+         for (i = 0; i < arr.size(); ++i) {
+            cout << "Título: " << arr[i].getTitulo() << ". " << "(" << i << ")" << endl;
+            cout << "Autor: " << arr[i].getAutor() << "." << endl;
+            cout << "Año de publicación: " << arr[i].getAno() << "." << endl;
+            cout << "Género: " << arr[i].getGenero() << "." << endl << endl;
+            
+         }
+      }
+
+      if (opcion == 4){
+         string busqueda;
+         cout << endl << "Introduce el nombre del libro que quieres buscar: " << endl;
+         cin >> busqueda;
+
+         int i;
+         for (i = 0; i < arr.size(); ++i) {
+            if (arr[i].getTitulo() == busqueda){
+               cout << "El título que has buscado (" << busqueda << ") está en el archivo" << endl;
+               cout << "El autor de este libro es: " << arr[i].getAutor() << endl;
+               cout << "El año de publicación de este libro es: " << arr[i].getAno() << endl;
+               cout << "El género de este libro es: " << arr[i].getGenero() << endl;
+            } 
          }
       }
    } 
